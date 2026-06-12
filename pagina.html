@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard del Sensor</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function fetchData() {
+            $.getJSON('/data', function(data) {
+                $('#temperatura').text(data.temperatura.toFixed(2) + ' °C');
+                $('#presion').text(data.presion.toFixed(2) + ' hPa');
+                $('#humedad').text(data.humedad.toFixed(2) + ' %');
+            });
+        }
+        
+        $(document).ready(function() {
+            fetchData();
+            setInterval(fetchData, 3000); // Actualiza los datos cada 3 segundos
+        });
+    </script>
+</head>
+<body>
+    <h1>Dashboard del Sensor BME280</h1>
+    <p>Temperatura: <span id="temperatura"></span></p>
+    <p>Presión: <span id="presion"></span></p>
+    <p>Humedad: <span id="humedad"></span></p>
+</body>
+</html>
